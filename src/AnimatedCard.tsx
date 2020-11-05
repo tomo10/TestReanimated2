@@ -1,6 +1,9 @@
 import React from 'react';
 import { StyleSheet, Dimensions } from 'react-native';
-import Animated, { interpolate, useAnimatedStyle } from 'react-native-reanimated';
+import Animated, {
+  interpolate,
+  useAnimatedStyle,
+} from 'react-native-reanimated';
 
 import { Card, Cards, StyleGuide } from './components';
 

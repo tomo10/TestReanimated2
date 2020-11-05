@@ -40,8 +40,11 @@ const useTiming = (state, config) => {
 };
 
 const UseTransition = () => {
-  const [toggled, setToggle] = useState(false);
-  const transition = useTiming(toggled, { duration: 800 });
+  // const [toggled, setToggle] = useState(false);
+  const toggled = useSharedValue(false); // alt way to use without State toggle
+  const transition = useDerivedValue(() => {
+    return withSpring(toggled.value);
+  });
   // const transition = useSpring(toggled);
 
   return (
@@ -52,7 +55,8 @@ const UseTransition = () => {
       <Button
         label={toggled ? 'Reset' : 'Start'}
         primary
-        onPress={() => setToggle((prev) => !prev)}
+        onPress={() => (toggled.value = !toggled.value)} // atl way to use without state
+        // onPress={() => setToggle((prev) => !prev)}
       />
     </View>
   );
