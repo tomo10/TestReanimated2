@@ -7,7 +7,6 @@ import Animated, {
   useSharedValue,
   withDecay,
 } from 'react-native-reanimated';
-import { Card } from './components';
 import { CARD_HEIGHT, CARD_WIDTH } from './components/Card';
 
 const styles = StyleSheet.create({
@@ -59,7 +58,7 @@ export default ({ width, height }: GestureProps) => {
     <View style={styles.container}>
       <PanGestureHandler {...{ onGestureEvent }}>
         <Animated.View {...{ style }}>
-          <Card />
+          <View style={{ height: 50, width: 50, backgroundColor: 'black' }} />
         </Animated.View>
       </PanGestureHandler>
     </View>

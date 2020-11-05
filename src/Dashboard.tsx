@@ -18,9 +18,9 @@ export default () => {
         onPress={() => navigation.navigate('Worklets')}
       />
       <View style={styles.gap} />
-      <Button title="Demo" onPress={() => navigation.navigate('Demo')} />
-      <View style={styles.gap} />
       <Button title="Gesture" onPress={() => navigation.navigate('Gesture')} />
+      <View style={styles.gap} />
+      <Button title="Custom" onPress={() => navigation.navigate('Custom')} />
       <View style={styles.gap} />
       <Button
         title="Animations"
