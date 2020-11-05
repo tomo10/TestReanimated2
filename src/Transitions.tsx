@@ -18,15 +18,20 @@ const styles = StyleSheet.create({
   },
 });
 
+const useSpring = (state) => {
+  const value = useSharedValue(0);
+  useEffect(() => {
+    value.value = typeof state === 'number' ? state : state ? 1 : 0;
+  }, [state, value]);
+  return useDerivedValue(() => {
+    return withSpring(value.value);
+  });
+};
+
 const UseTransition = () => {
   const [toggled, setToggle] = useState(false);
-  const isToggled = useSharedValue(false);
-  useEffect(() => {
-    isToggled.value = toggled;
-  }, [toggled, isToggled]);
-  const transition = useDerivedValue(() => {
-    return withSpring(isToggled.value);
-  });
+  const transition = useSpring(toggled);
+
   return (
     <View style={styles.container}>
       {cards.map((card, index) => (
