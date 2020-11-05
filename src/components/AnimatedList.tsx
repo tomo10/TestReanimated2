@@ -20,24 +20,19 @@ const styles = StyleSheet.create({
 
 interface AnimatedCardProps {
   transition: any;
-  height: any;
+  styleH: any;
+  // heightTranstion: any;
 }
 
-const AnimatedList = ({ transition, height }: AnimatedCardProps) => {
+const AnimatedList = ({ transition, styleH }: AnimatedCardProps) => {
   const stylez = useAnimatedStyle(() => {
-    // const height = interpolate(transition.value, [0, 1], [30, 100]);
     const move = interpolate(transition.value, [0, 1], [0, 50]);
     return {
       transform: [{ translateY: move }],
     };
   });
-  const animatedStyle = useAnimatedStyle(() => {
-    return {
-      height: height.value,
-    };
-  });
 
-  return <Animated.View style={[styles.box, stylez, animatedStyle]} />;
+  return <Animated.View style={[styles.box, stylez, styleH]} />;
 };
 
 export default AnimatedList;

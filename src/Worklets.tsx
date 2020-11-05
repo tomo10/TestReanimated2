@@ -1,6 +1,13 @@
 import * as React from 'react';
-import { StyleSheet, View } from 'react-native';
-import Animated, { runOnUI, useDerivedValue, useSharedValue, withSpring } from 'react-native-reanimated';
+import { Easing, StyleSheet, View } from 'react-native';
+import Animated, {
+  runOnUI,
+  useAnimatedStyle,
+  useDerivedValue,
+  useSharedValue,
+  withSpring,
+  withTiming,
+} from 'react-native-reanimated';
 import { ReText } from 'react-native-redash';
 import { Button, CARD_HEIGHT } from './components';
 import AnimatedList from './components/AnimatedList';
@@ -39,6 +46,14 @@ export default () => {
   const transition = useDerivedValue(() => {
     return withSpring(openList.value);
   });
+  const styleH = useAnimatedStyle(() => {
+    return {
+      height: withTiming(height.value, {
+        duration: 600,
+      }),
+    };
+  });
+
   return (
     <View style={styles.container}>
       <Button
@@ -50,9 +65,10 @@ export default () => {
       <Button
         label="Dropdown"
         primary={true}
+        // onPress={() => (height.value = height.value === 50 ? 120 : 50)}
         onPress={() => runOnUI(triggerList)(height, openList)}
       />
-      <AnimatedList {...{ transition, height }} />
+      <AnimatedList {...{ transition, styleH }} />
     </View>
   );
 };
