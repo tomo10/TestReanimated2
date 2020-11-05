@@ -1,6 +1,12 @@
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { useSharedValue, withTiming } from 'react-native-reanimated';
+import {
+  Easing,
+  useSharedValue,
+  withRepeat,
+  withTiming,
+} from 'react-native-reanimated';
+import { withPause } from 'react-native-redash';
 import { Button } from './components';
 import ChatBubble from './components/ChatBubble';
 
@@ -13,6 +19,7 @@ const styles = StyleSheet.create({
 
 const Timing = () => {
   const [play, setPlay] = React.useState(false);
+  // const paused = useSharedValue(!play);
   const progress = useSharedValue<null | number>(null);
   return (
     <View style={styles.container}>
@@ -22,8 +29,16 @@ const Timing = () => {
         primary
         onPress={() => {
           setPlay((prev) => !prev);
+          // paused.value = !paused.value;
           if (progress.value === null) {
-            progress.value = withTiming(1);
+            progress.value = withRepeat(
+              withTiming(1, {
+                duration: 1100,
+                easing: Easing.inOut(Easing.ease),
+              }),
+              -1,
+              true,
+            );
           }
         }}
       />
