@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Pan } from './';
+import Transitions from './';
 import { Worklets } from './';
 import { Dashboard } from './';
 import { Demo } from './';
@@ -17,7 +17,7 @@ export default () => {
         <Stack.Screen name="Worklets" component={Worklets} />
         <Stack.Screen name="Demo" component={Demo} />
         <Stack.Screen name="Gesture" component={Gesture} />
-        <Stack.Screen name="Pan" component={Pan} />
+        <Stack.Screen name="Transitions" component={Transitions} />
       </Stack.Navigator>
     </NavigationContainer>
   );

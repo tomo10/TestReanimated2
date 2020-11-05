@@ -5,8 +5,10 @@ import Animated, {
   useAnimatedGestureHandler,
   useAnimatedStyle,
   useSharedValue,
+  withDecay,
 } from 'react-native-reanimated';
 import { Card } from './components';
+import { CARD_HEIGHT, CARD_WIDTH } from './components/Card';
 
 const styles = StyleSheet.create({
   container: {
@@ -20,6 +22,8 @@ interface GestureProps {
 }
 
 export default ({ width, height }: GestureProps) => {
+  // const boundX = width - CARD_WIDTH;
+  // const boundY = height - CARD_HEIGHT;
   const translateX = useSharedValue(0);
   const translateY = useSharedValue(0);
   const onGestureEvent = useAnimatedGestureHandler({
@@ -30,6 +34,16 @@ export default ({ width, height }: GestureProps) => {
     onActive: (event, ctx) => {
       translateX.value = ctx.offsetX + event.translationX;
       translateY.value = ctx.offsetY + event.translationY;
+    },
+    onEnd: (event) => {
+      translateX.value = withDecay({
+        velocity: event.velocityX,
+        clamp: [0, width - CARD_WIDTH],
+      });
+      translateY.value = withDecay({
+        velocity: event.velocityY,
+        clamp: [0, height - CARD_HEIGHT],
+      });
     },
   });
 

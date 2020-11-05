@@ -13,6 +13,10 @@ export default () => {
       />
       <Button title="Demo" onPress={() => navigation.navigate('Demo')} />
       <Button title="Gesture" onPress={() => navigation.navigate('Gesture')} />
+      <Button
+        title="Transitions"
+        onPress={() => navigation.navigate('Transitions')}
+      />
     </View>
   );
 };

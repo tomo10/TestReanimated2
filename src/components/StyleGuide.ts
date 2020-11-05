@@ -24,7 +24,7 @@ const StyleGuide = {
     footnote: {
       fontSize: 13,
       lineHeight: 18,
-      color: "#999999",
+      color: '#999999',
     },
     headline: {
       fontSize: 17,
