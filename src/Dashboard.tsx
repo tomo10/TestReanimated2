@@ -11,6 +11,8 @@ export default () => {
         title="Worklets"
         onPress={() => navigation.navigate('Worklets')}
       />
+      <Button title="Demo" onPress={() => navigation.navigate('Demo')} />
+      <Button title="Gesture" onPress={() => navigation.navigate('Gesture')} />
     </View>
   );
 };

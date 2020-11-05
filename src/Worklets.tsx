@@ -22,8 +22,8 @@ const formatDateTime = (datetime: Date) => {
 };
 
 const sayHello = (text, from) => {
-  'worklet';
-  text.value = `Hello from ${from}`;
+  "worklet";
+  text.value = `Hello from ${from} on ${formatDateTime(new Date())}`;
 };
 
 export default () => {
