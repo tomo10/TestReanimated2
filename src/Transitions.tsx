@@ -8,6 +8,7 @@ import {
   useDerivedValue,
   useSharedValue,
   withSpring,
+  withTiming,
 } from 'react-native-reanimated';
 
 const styles = StyleSheet.create({
@@ -28,9 +29,20 @@ const useSpring = (state) => {
   });
 };
 
+const useTiming = (state, config) => {
+  const value = useSharedValue(0);
+  useEffect(() => {
+    value.value = typeof state === 'number' ? state : state ? 1 : 0;
+  }, [state, value]);
+  return useDerivedValue(() => {
+    return withTiming(value.value, config);
+  });
+};
+
 const UseTransition = () => {
   const [toggled, setToggle] = useState(false);
-  const transition = useSpring(toggled);
+  const transition = useTiming(toggled, { duration: 800 });
+  // const transition = useSpring(toggled);
 
   return (
     <View style={styles.container}>
