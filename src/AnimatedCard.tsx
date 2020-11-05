@@ -1,11 +1,10 @@
 import React from 'react';
 import { StyleSheet, Dimensions } from 'react-native';
-import Animated from 'react-native-reanimated';
+import Animated, { interpolate, useAnimatedStyle } from 'react-native-reanimated';
 
 import { Card, Cards, StyleGuide } from './components';
 
 const { width } = Dimensions.get('window');
-const origin = -(width / 2 - StyleGuide.spacing * 2);
 const styles = StyleSheet.create({
   overlay: {
     ...StyleSheet.absoluteFillObject,
@@ -16,30 +15,20 @@ const styles = StyleSheet.create({
 });
 
 interface AnimatedCardProps {
-  toggled: boolean;
+  transition: any;
   index: number;
   card: Cards;
 }
 
-const AnimatedCard = ({ card, toggled, index }: AnimatedCardProps) => {
-  console.log(toggled);
-
-  const rotate = toggled ? (index - 1) * Math.PI : 0;
-  console.log('rotate:', rotate, index, card);
-
+const AnimatedCard = ({ card, transition, index }: AnimatedCardProps) => {
+  const style = useAnimatedStyle(() => {
+    const move = interpolate(transition.value, [0, 1], [0, (index - 1) * 45]);
+    return {
+      transform: [{ translateX: move }, { translateY: move }],
+    };
+  });
   return (
-    <Animated.View
-      key={card}
-      style={[
-        styles.overlay,
-        {
-          transform: [
-            { translateX: origin },
-            { rotate: `${rotate}deg` },
-            { translateX: -origin },
-          ],
-        },
-      ]}>
+    <Animated.View key={card} style={[styles.overlay, style]}>
       <Card {...{ card }} />
     </Animated.View>
   );
