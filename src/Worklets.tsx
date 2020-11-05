@@ -2,7 +2,7 @@ import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 import Animated, { runOnUI, useDerivedValue, useSharedValue, withSpring } from 'react-native-reanimated';
 import { ReText } from 'react-native-redash';
-import { Button } from './components';
+import { Button, CARD_HEIGHT } from './components';
 import AnimatedList from './components/AnimatedList';
 
 const styles = StyleSheet.create({
@@ -26,9 +26,16 @@ const sayHello = (text, from) => {
   text.value = `Hello from ${from} on ${formatDateTime(new Date())}`;
 };
 
+const triggerList = (height, openList) => {
+  "worklet";
+  height.value = height.value === 50 ? 120 : 50;
+  openList.value = !openList.value;
+};
+
 export default () => {
   const text = useSharedValue('');
   const openList = useSharedValue(false); // alt way to use without State toggle
+  const height = useSharedValue(50);
   const transition = useDerivedValue(() => {
     return withSpring(openList.value);
   });
@@ -43,9 +50,9 @@ export default () => {
       <Button
         label="Dropdown"
         primary={true}
-        onPress={() => (openList.value = !openList.value)}
+        onPress={() => runOnUI(triggerList)(height, openList)}
       />
-      <AnimatedList {...{ transition }} />
+      <AnimatedList {...{ transition, height }} />
     </View>
   );
 };
