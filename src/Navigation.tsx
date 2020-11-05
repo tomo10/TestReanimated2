@@ -6,6 +6,7 @@ import { Worklets } from './';
 import { Dashboard } from './';
 import { Demo } from './';
 import { Gesture } from './';
+import { Animations } from './';
 
 const Stack = createStackNavigator();
 
@@ -18,6 +19,7 @@ export default () => {
         <Stack.Screen name="Demo" component={Demo} />
         <Stack.Screen name="Gesture" component={Gesture} />
         <Stack.Screen name="Transitions" component={Transitions} />
+        <Stack.Screen name="Animations" component={Animations} />
       </Stack.Navigator>
     </NavigationContainer>
   );
