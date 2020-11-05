@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { runOnUI, useSharedValue } from 'react-native-reanimated';
+import Animated, { runOnUI, useDerivedValue, useSharedValue, withSpring } from 'react-native-reanimated';
 import { ReText } from 'react-native-redash';
 import { Button } from './components';
+import AnimatedList from './components/AnimatedList';
 
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
-    // alignItems: 'center',
   },
 });
 
@@ -28,6 +28,10 @@ const sayHello = (text, from) => {
 
 export default () => {
   const text = useSharedValue('');
+  const openList = useSharedValue(false); // alt way to use without State toggle
+  const transition = useDerivedValue(() => {
+    return withSpring(openList.value);
+  });
   return (
     <View style={styles.container}>
       <Button
@@ -36,6 +40,12 @@ export default () => {
         onPress={() => runOnUI(sayHello)(text, 'Beautiful Okavango Delta')}
       />
       <ReText text={text} />
+      <Button
+        label="Dropdown"
+        primary={true}
+        onPress={() => (openList.value = !openList.value)}
+      />
+      <AnimatedList {...{ transition }} />
     </View>
   );
 };

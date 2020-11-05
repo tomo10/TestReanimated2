@@ -13,7 +13,7 @@ const Stack = createStackNavigator();
 export default () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator screenOptions={{ header: () => null }}>
         <Stack.Screen name="Dashboard" component={Dashboard} />
         <Stack.Screen name="Worklets" component={Worklets} />
         <Stack.Screen name="Custom" component={Custom} />

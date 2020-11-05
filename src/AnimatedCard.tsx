@@ -4,10 +4,8 @@ import Animated, {
   interpolate,
   useAnimatedStyle,
 } from 'react-native-reanimated';
-
 import { Card, Cards, StyleGuide } from './components';
 
-const { width } = Dimensions.get('window');
 const styles = StyleSheet.create({
   overlay: {
     ...StyleSheet.absoluteFillObject,
