@@ -31,6 +31,11 @@ export default () => {
         title="Transitions"
         onPress={() => navigation.navigate('Transitions')}
       />
+      <View style={styles.gap} />
+      <Button
+        title="Accordion"
+        onPress={() => navigation.navigate('Accordion')}
+      />
     </View>
   );
 };

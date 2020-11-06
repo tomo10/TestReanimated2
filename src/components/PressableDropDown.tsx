@@ -14,7 +14,6 @@ const styles = StyleSheet.create({
   },
   box: {
     backgroundColor: 'orange',
-    flexDirection: 'row-reverse',
     width,
   },
 });
@@ -27,7 +26,6 @@ const menuDrop = (height) => {
 };
 
 const PressableDropDown = () => {
-  // const [toggle, setToggle] = React.useState(false);
   const height = useSharedValue(0);
   const heightZ = useAnimatedStyle(() => {
     return {
@@ -38,7 +36,7 @@ const PressableDropDown = () => {
   return (
     <>
       <Pressable onPress={() => runOnUI(menuDrop)(height)}>
-        <View style={[styles.box, { height: 50 }]} />
+        <View style={{ height: 50, backgroundColor: 'yellow' }} />
       </Pressable>
       <Animated.View style={[styles.box, heightZ]}>
         {list.map((item, key) => (

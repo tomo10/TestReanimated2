@@ -7,6 +7,7 @@ import { Dashboard } from './';
 import { Custom } from './';
 import { Gesture } from './';
 import { Animations } from './';
+import Accordion from './Accordion';
 
 const Stack = createStackNavigator();
 
@@ -20,6 +21,7 @@ export default () => {
         <Stack.Screen name="Gesture" component={Gesture} />
         <Stack.Screen name="Transitions" component={Transitions} />
         <Stack.Screen name="Animations" component={Animations} />
+        <Stack.Screen name="Accordion" component={Accordion} />
       </Stack.Navigator>
     </NavigationContainer>
   );
