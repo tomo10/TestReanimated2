@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Easing, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import Animated, {
   runOnUI,
   useAnimatedStyle,
@@ -9,8 +9,9 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import { ReText } from 'react-native-redash';
-import { Button, CARD_HEIGHT } from './components';
+import { Button } from './components';
 import AnimatedList from './components/AnimatedList';
+import PressableDropDown from './components/PressableDropDown';
 
 const styles = StyleSheet.create({
   container: {
@@ -29,12 +30,12 @@ const formatDateTime = (datetime: Date) => {
 };
 
 const sayHello = (text, from) => {
-  "worklet";
+  'worklet';
   text.value = `Hello from ${from} on ${formatDateTime(new Date())}`;
 };
 
 const triggerList = (height, openList) => {
-  "worklet";
+  'worklet';
   height.value = height.value === 50 ? 120 : 50;
   openList.value = !openList.value;
 };
@@ -48,9 +49,7 @@ export default () => {
   });
   const styleH = useAnimatedStyle(() => {
     return {
-      height: withTiming(height.value, {
-        duration: 600,
-      }),
+      height: withSpring(height.value),
     };
   });
 
@@ -69,6 +68,7 @@ export default () => {
         onPress={() => runOnUI(triggerList)(height, openList)}
       />
       <AnimatedList {...{ transition, styleH }} />
+      <PressableDropDown />
     </View>
   );
 };
