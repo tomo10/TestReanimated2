@@ -44,11 +44,19 @@ interface ListProps {
 }
 
 const List = ({ list }: ListProps) => {
-  const height = useSharedValue(0);
+  const aRef = useAnimatedRef();
   const open = useSharedValue(false);
+  const height = useSharedValue(0);
+  const progress = useDerivedValue(() => {
+    return open.value ? withSpring(1) : withTiming(0);
+  });
   const headerStyle = useAnimatedStyle(() => ({
-    borderBottomLeftRadius: 8,
-    borderBottomRightRadius: 8,
+    borderBottomLeftRadius: progress.value === 0 ? 8 : 0,
+    borderBottomRightRadius: progress.value === 0 ? 8 : 0,
+  }));
+  const style = useAnimatedStyle(() => ({
+    height: 1 + progress.value * height.value,
+    opacity: progress.value === 0 ? 0 : 1,
   }));
   return (
     <>
@@ -57,16 +65,33 @@ const List = ({ list }: ListProps) => {
           if (height.value === 0) {
             runOnUI(() => {
               'worklet';
-              height.value = measure(aref).height;
+              height.value = measure(aRef).height;
             })();
           }
           open.value = !open.value;
         }}>
         <Animated.View style={[styles.container, headerStyle]}>
           <Text style={styles.title}>Total Points</Text>
-          <Chevron open={open} />
+          <Chevron {...{ progress }} />
         </Animated.View>
       </TouchableWithoutFeedback>
+      <Animated.View style={[styles.items, style]}>
+        <View
+          ref={aRef}
+          onLayout={({
+            nativeEvent: {
+              layout: { height: h },
+            },
+          }) => console.log({ h })}>
+          {list.items.map((item, key) => (
+            <Item
+              key={key}
+              isLast={key === list.items.length - 1}
+              {...{ item }}
+            />
+          ))}
+        </View>
+      </Animated.View>
     </>
   );
 };

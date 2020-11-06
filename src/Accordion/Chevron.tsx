@@ -17,16 +17,16 @@ const styles = StyleSheet.create({
 });
 
 interface ChevronProps {
-  // progress: Animated.SharedValue<number>;
+  progress: Animated.SharedValue<number>;
 }
 
-const Chevron = ({ open }: ChevronProps) => {
-  // const style = useAnimatedStyle(() => ({
-  //   backgroundColor: mixColor(progress.value, '#525251', '#e45645'),
-  //   transform: [{ rotateZ: open ? 0 : Math.PI }],
-  // }));
+const Chevron = ({ progress }: ChevronProps) => {
+  const style = useAnimatedStyle(() => ({
+    backgroundColor: mixColor(progress.value, '#525251', '#e45645'),
+    transform: [{ rotateZ: `${mix(progress.value, 0, Math.PI)}rad` }],
+  }));
   return (
-    <Animated.View style={[styles.container]}>
+    <Animated.View style={[styles.container, style]}>
       <Svg
         width={24}
         height={24}
