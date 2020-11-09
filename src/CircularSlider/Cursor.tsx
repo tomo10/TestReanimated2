@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import * as React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { PanGestureHandler } from 'react-native-gesture-handler';
 import Animated, {
   useAnimatedGestureHandler,
@@ -32,7 +32,12 @@ const Cursor = ({ r, strokeWidth, theta }: CursorProps) => {
       const { translationX, translationY } = event;
       const x = ctx.offset.x + translationX;
       const y = ctx.offset.y + translationY;
-      theta.value = canvas2Polar({ x, y }, center).theta;
+      const value = canvas2Polar({ x, y }, center).theta;
+      theta.value = value > 0 ? value : 2 * Math.PI + value; // normalizing value here. Dont want to deal with negatives
+      // console.log({
+      //   before: value,
+      //   after: theta.value,
+      // });
     },
   });
   const style = useAnimatedStyle(() => {
