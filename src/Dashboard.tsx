@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 
 const styles = StyleSheet.create({
   gap: {
-    marginTop: 4,
+    marginTop: 6,
   },
 });
 
@@ -35,6 +35,11 @@ export default () => {
       <Button
         title="Accordion"
         onPress={() => navigation.navigate('Accordion')}
+      />
+      <View style={styles.gap} />
+      <Button
+        title="Circular Slider"
+        onPress={() => navigation.navigate('CircularSlider')}
       />
     </View>
   );

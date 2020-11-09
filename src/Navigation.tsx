@@ -8,6 +8,7 @@ import { Custom } from './';
 import { Gesture } from './';
 import { Animations } from './';
 import Accordion from './Accordion';
+import CircularSlider from './CircularSlider';
 
 const Stack = createStackNavigator();
 
@@ -22,6 +23,7 @@ export default () => {
         <Stack.Screen name="Transitions" component={Transitions} />
         <Stack.Screen name="Animations" component={Animations} />
         <Stack.Screen name="Accordion" component={Accordion} />
+        <Stack.Screen name="CircularSlider" component={CircularSlider} />
       </Stack.Navigator>
     </NavigationContainer>
   );
