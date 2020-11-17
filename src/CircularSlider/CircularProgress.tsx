@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import Animated, { useAnimatedProps } from 'react-native-reanimated';
-import Svg, { Circle } from 'react-native-svg';
+import Svg, { Circle, G } from 'react-native-svg';
 
 import { StyleGuide } from '../components';
 
@@ -10,21 +10,28 @@ const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
 interface CircularProgressProps {
   theta: Animated.SharedValue<number>;
+  altTheta: Animated.SharedValue<number>;
   r: number;
   strokeWidth: number;
 }
 
-const CircularProgress = ({ r, strokeWidth, theta }: CircularProgressProps) => {
+const CircularProgress = ({
+  r,
+  strokeWidth,
+  theta,
+  altTheta,
+}: CircularProgressProps) => {
   const radius = r - strokeWidth / 2;
   const circumference = radius * 2 * PI;
   const props = useAnimatedProps(() => {
+    const delta = theta.value - altTheta.value;
     return {
-      strokeDashoffset: theta.value * radius,
+      strokeDashoffset: delta * radius,
     };
   });
-
   return (
     <Svg style={StyleSheet.absoluteFill}>
+      {/* <G rotation="-90" origin={`${r}, ${r}`}> */}
       <Circle
         cx={r}
         cy={r}
@@ -38,11 +45,12 @@ const CircularProgress = ({ r, strokeWidth, theta }: CircularProgressProps) => {
         cx={r}
         cy={r}
         fill="transparent"
-        r={radius}
         stroke={StyleGuide.palette.primary}
-        strokeDasharray={`${circumference}, ${circumference}`}
+        r={radius}
         {...{ strokeWidth }}
+        strokeDasharray={`${circumference}`}
       />
+      {/* </G> */}
     </Svg>
   );
 };

@@ -23,19 +23,30 @@ const styles = StyleSheet.create({
     height: r * 2,
   },
 });
+// console.log('r:', r);
+// console.log('defaultTheta:', defaultTheta);
 
 const CircularSlider = () => {
   const theta = useSharedValue(defaultTheta);
+  const altTheta = useSharedValue(1);
   return (
     <View style={styles.container}>
       <View style={styles.content}>
         <Animated.View style={StyleSheet.absoluteFill}>
-          <CircularProgress strokeWidth={STROKE_WIDTH} {...{ theta, r }} />
+          <CircularProgress
+            strokeWidth={STROKE_WIDTH}
+            {...{ theta, altTheta, r }}
+          />
         </Animated.View>
         <Cursor
           strokeWidth={STROKE_WIDTH}
           r={r - STROKE_WIDTH / 2}
           {...{ theta }}
+        />
+        <Cursor
+          strokeWidth={STROKE_WIDTH}
+          r={r - STROKE_WIDTH / 2}
+          theta={altTheta}
         />
       </View>
     </View>

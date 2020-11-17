@@ -34,10 +34,10 @@ const Cursor = ({ r, strokeWidth, theta }: CursorProps) => {
       const y = ctx.offset.y + translationY;
       const value = canvas2Polar({ x, y }, center).theta;
       theta.value = value > 0 ? value : 2 * Math.PI + value; // normalizing value here. Dont want to deal with negatives
-      // console.log({
-      //   before: value,
-      //   after: theta.value,
-      // });
+      console.log({
+        before: value,
+        after: theta.value,
+      });
     },
   });
   const style = useAnimatedStyle(() => {
